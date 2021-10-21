@@ -12,7 +12,6 @@
     <route id="xml">
 
       <from uri="direct:getDetails"/>
-      <!-- <log message="incoming is:\n ${body}"/> -->
 
       <!-- REQUEST TRANSFORMATION -->
       <to uri="atlasmap:{{api.resources}}/request.adm"/>
@@ -26,11 +25,9 @@
         <constant>application/xml</constant>
       </setHeader>
       <to uri="http:{{api.backend1.host}}/camel/subscriber/details"/>
-      <!-- <convertBodyTo type="String"/> -->
 
       <!-- RESPONSE TRANSFORMATION -->
       <to uri="atlasmap:{{api.resources}}/response.adm"/>
-      <!-- <log message="response is:\n ${body}"/> -->
 
     </route>
 
