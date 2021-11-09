@@ -55,9 +55,9 @@ You can send a `POST` request with the following `curl` command:
 
 ```
 curl \
--H "content-type: application/xml" \
--d '' \
+-H "content-type: application/json" \
+-d '{"id":"123"}' \
 http://localhost:8080/camel/subscriber/details
-`
+```
 
 
