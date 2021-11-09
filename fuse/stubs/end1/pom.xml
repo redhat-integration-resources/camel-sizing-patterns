@@ -16,7 +16,6 @@
 
         <!-- configure the Fuse version you want to use here -->
         <fuse.bom.version>7.9.0.fuse-sb2-790065-redhat-00001</fuse.bom.version>
-        <!-- <fuse.bom.version>7.8.0.fuse-sb2-780038-redhat-00001</fuse.bom.version> -->
         <docker.image.version>1.9</docker.image.version>
     </properties>
 
@@ -237,7 +236,7 @@
         <profile>
             <id>java11</id>
             <properties>
-                <jkube.generator.from>registry.redhat.io/fuse7/fuse7-fuse-java-openshift-jdk11-rhel8:${docker.image.version}</jkube.generator.from>
+                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-jdk11-rhel8:${docker.image.version}</jkube.generator.from>
             </properties>
             <activation>
                 <jdk>[11,)</jdk>

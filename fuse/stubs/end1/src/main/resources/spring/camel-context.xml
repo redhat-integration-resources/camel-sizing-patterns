@@ -9,7 +9,7 @@
   <!-- Define a traditional camel context here -->
   <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
 
-    <restConfiguration apiContextPath="api-docs" 
+    <restConfiguration apiContextPath="openapi.json" 
         component="servlet" contextPath="camel" port="{{server.port}}">
         <apiProperty key="cors" value="true"/>
         <apiProperty key="api.title" value="Backend XML REST API"/>

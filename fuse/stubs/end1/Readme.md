@@ -4,7 +4,7 @@
 Run it executing the command below:
 
 ```
-mvn
+mvn -Dspring-boot.run.profiles=dev
 ```
 
 You can discover the *OpenApi* service specification with the following `curl` command:
@@ -24,7 +24,7 @@ curl \
 http://localhost:9000/camel/subscriber/details
 ```
 
-## Deploying to Openshift
+## Deploying on Openshift
 
 Ensure you create/switch-to the namespace where you want to deploy the stub.
 
@@ -64,5 +64,5 @@ curl \
 -H "content-type: application/xml" \
 -d '' \
 http://localhost:8080/camel/subscriber/details
-`
+```
 

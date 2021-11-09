@@ -59,7 +59,9 @@
       <setHeader headerName="Exchange.CONTENT_TYPE">
         <constant>application/xml</constant>
       </setHeader>
-      <to uri="http4:localhost:9000/camel/subscriber/details"/>
+      <!-- <to uri="http4:localhost:9000/camel/subscriber/details"/> -->
+      <to uri="http4:{{api.backend1.host}}/camel/subscriber/details"/>
+
       <!-- <convertBodyTo type="String"/> -->
 
       <!-- RESPONSE TRANSFORMATION -->
