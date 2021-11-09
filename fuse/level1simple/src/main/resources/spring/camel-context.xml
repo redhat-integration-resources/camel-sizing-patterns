@@ -46,7 +46,6 @@
 
     <route id="simple-route">
       <from uri="direct:getDetails"/>
-      <!-- <log message="incoming is:\n ${body}"/> -->
 
       <!-- REQUEST TRANSFORMATION -->
       <to uri="atlas:map/subscriber-mapping-req.adm"/>
@@ -59,14 +58,10 @@
       <setHeader headerName="Exchange.CONTENT_TYPE">
         <constant>application/xml</constant>
       </setHeader>
-      <!-- <to uri="http4:localhost:9000/camel/subscriber/details"/> -->
       <to uri="http4:{{api.backend1.host}}/camel/subscriber/details"/>
-
-      <!-- <convertBodyTo type="String"/> -->
 
       <!-- RESPONSE TRANSFORMATION -->
       <to uri="atlas:map/subscriber-mapping-res.adm"/>
-      <!-- <log message="response is:\n ${body}"/> -->
 
     </route>
   </camelContext>
