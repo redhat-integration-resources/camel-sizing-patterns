@@ -273,6 +273,30 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- 
+            To enable API-first approach:
+            This plugin auto-generates the Camel REST-DSL definition
+            Camel loads it from the classpath -->
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-restdsl-openapi-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>simple</id>
+                        <goals>
+                            <goal>generate-xml</goal>
+                        </goals>
+                        <configuration>
+                            <specificationUri>src/main/resources/api/openapi.json</specificationUri>
+                            <restConfiguration>false</restConfiguration>
+                            <outputDirectory>${project.build.directory}/classes/routes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
 
