@@ -71,6 +71,8 @@
           <groupId>org.apache.camel</groupId>
           <artifactId>camel-jaxb-starter</artifactId>
         </dependency>
+
+
         <dependency>
           <groupId>com.google.code.gson</groupId>
           <artifactId>gson</artifactId>
@@ -130,6 +132,9 @@
 
 
 
+
+
+
 <!--       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-restdsl-swagger-plugin</artifactId>
@@ -144,12 +149,79 @@
           </execution>
         </executions>
         <configuration>
-          <specificationUri>src/main/resources/openapi/demodata.json</specificationUri>
-          <fileName>camel-rest.xml</fileName>
-          <outputDirectory>src/main/resources/spring</outputDirectory>
+          <specificationUri>src/main/resources/openapi/subscriber2.json</specificationUri>
+          <fileName>camel-rest-v2.xml</fileName>
+          <outputDirectory>src/main/resources/camel-rest</outputDirectory>
           <modelOutput>${basedir}/target/generated</modelOutput>
         </configuration>
+      </plugin>
+ -->
+
+<!--       <plugin>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-restdsl-swagger-plugin</artifactId>
+        <version>2.24.0</version>
+        <executions>
+          <execution>
+            <id>generate-sources-rest</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate-xml</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <specificationUri>src/main/resources/openapi/subscriber2.json</specificationUri>
+          <fileName>camel-rest-v2.xml</fileName>
+          <outputDirectory>src/main/resources/camel-rest</outputDirectory>
+        </configuration>
       </plugin> -->
+
+<!--  This plugin seems to generate Camel 3 code only.
+      We use the XML maven plugin to adapt it to Camel 2 code -->
+      <plugin>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-restdsl-openapi-plugin</artifactId>
+        <!-- <version>3.15.0</version> -->
+        <version>2.23.2.fuse-790054-redhat-00001</version>
+        <executions>
+          <execution>
+            <id>simple</id>
+            <goals>
+              <goal>generate-xml</goal>
+            </goals>
+            <configuration>
+              <specificationUri>src/main/resources/api/openapi.json</specificationUri>
+              <restConfiguration>false</restConfiguration>
+  <!-- <outputDirectory>${project.build.directory}/classes/camel-rest</outputDirectory> -->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+<!--  We adapt Camel 3 code to Camel 2 code -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <transformationSets>
+            <transformationSet>
+              <dir>${basedir}/target/generated-sources/restdsl-openapi</dir>
+              <stylesheet>src/main/rest-templates/rest-dsl.xsl</stylesheet>
+              <outputDir>target/classes/spring</outputDir>
+            </transformationSet>
+          </transformationSets>
+        </configuration>
+      </plugin>
+
+
 
         </plugins>
 

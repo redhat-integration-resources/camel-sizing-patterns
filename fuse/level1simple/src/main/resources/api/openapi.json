@@ -4,6 +4,12 @@
         "title": "Subscriber",
         "version": "1.0.0"
     },
+    "servers": [
+        {
+          "url": "http://localhost:8080/camel",
+          "description": "Local host, for development"
+        }
+    ],
     "paths": {
         "/subscriber/details": {
             "post": {
