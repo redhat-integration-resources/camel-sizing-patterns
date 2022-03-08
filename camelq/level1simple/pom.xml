@@ -103,6 +103,12 @@
             <artifactId>camel-quarkus-http</artifactId>
         </dependency>
 
+        <!-- Swagger UI to discover and test operations -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -288,7 +294,7 @@
                             <goal>generate-xml</goal>
                         </goals>
                         <configuration>
-                            <specificationUri>src/main/resources/api/openapi.json</specificationUri>
+                            <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
                             <restConfiguration>false</restConfiguration>
                             <outputDirectory>${project.build.directory}/classes/routes</outputDirectory>
                         </configuration>

@@ -8,7 +8,9 @@ Run the JUnits with the command below:
 mvn clean test
 ```
 
-## Running the stub service
+## Running the service
+
+>**Note**: the stub needs to be up and running for a successful end-to-end execution. Refer to the stub's Readme doc for instructions to run it.
 
 Run it locally executing the command below:
 
@@ -16,11 +18,7 @@ Run it locally executing the command below:
 mvn clean compile quarkus:dev
 ```
 
-You can discover the *OpenApi* service specification with the following `curl` command:
-
-```
-curl http://localhost:8080/camel/openapi.json
-```
+## Test with cURL
 
 You can send a `POST` request with the following `curl` command:
 
@@ -30,6 +28,22 @@ curl \
 -d '{"id":"123"}' \
 http://localhost:8080/camel/subscriber/details
 ```
+
+## Discover and test with the Swagger UI
+
+You can discover the *OpenApi* service specification with the following `curl` command:
+
+```
+curl http://localhost:8080/camel/openapi.json
+```
+
+You can also open the Swagger UI by opening the URL in a browser
+
+ - http://localhost:8080/camel/openapi.json
+
+Click on the service to try, and hit the `Try it out` button, scroll down and then click `Execute`
+
+<br>
 
 ## Deploying to Openshift
 
