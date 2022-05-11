@@ -5,7 +5,7 @@ The service includes a JUnit to showcase how unit testing can be implemented for
 Run the JUnits with the command below:
 
 ```
-mvn clean test
+./mvnw clean test
 ```
 
 ## Running the service
@@ -15,7 +15,7 @@ mvn clean test
 Run it locally executing the command below:
 
 ```
-mvn clean compile quarkus:dev
+./mvnw clean compile quarkus:dev
 ```
 
 ## Test with cURL
@@ -31,17 +31,17 @@ http://localhost:8080/camel/subscriber/details
 
 ## Discover and test with the Swagger UI
 
-You can discover the *OpenApi* service specification with the following `curl` command:
+You can display the Swagger UI by:
+ 1. Entering its URL in your browser's address bar
+ 2. via the dev UI (SmallRye OpenApi tile) 
 
-```
-curl http://localhost:8080/camel/openapi.json
-```
+To open the Swagger UI by opening the URL in a browser, enter:
 
-You can also open the Swagger UI by opening the URL in a browser
-
- - http://localhost:8080/camel/openapi.json
+ - http://localhost:8080/q/camel/openapi.json
 
 Click on the service to try, and hit the `Try it out` button, scroll down and then click `Execute`
+
+Or, from your running Camel Quarkus terminal, press `[d]`, it will open the dev UI in your default brower. Find the SmallRye tile, and click **Swagger UI**
 
 <br>
 
@@ -51,7 +51,7 @@ Ensure you create/switch-to the namespace where you want to deploy the stub.
 
 Run the following command to trigger the deployment:
 ```
-mvn clean package -DskipTests -Dquarkus.kubernetes.deploy=true
+./mvnw clean package -DskipTests -Dquarkus.kubernetes.deploy=true
 ```
 
 To test the stub once deployed, open a tunnel with the following command:
@@ -59,13 +59,13 @@ To test the stub once deployed, open a tunnel with the following command:
 oc port-forward service/simple 8080
 ```
 
-You can discover the *OpenApi* service specification with the following `curl` command:
+Open the Swagger UI by opening the URL in a browser
 
-```
-curl http://localhost:8080/camel/openapi.json
-```
+ - http://localhost:8080/q/camel/openapi.json
 
-You can send a `POST` request with the following `curl` command:
+Click on the service to try, and hit the `Try it out` button, scroll down and then click `Execute`
+
+You can also send a `POST` request with the following `curl` command:
 
 ```
 curl \
@@ -73,5 +73,4 @@ curl \
 -d '{"id":"123"}' \
 http://localhost:8080/camel/subscriber/details
 ```
-
 

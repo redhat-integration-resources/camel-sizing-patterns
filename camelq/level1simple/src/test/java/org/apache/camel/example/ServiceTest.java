@@ -29,13 +29,20 @@ import static org.hamcrest.Matchers.is;
 public class ServiceTest {
 
     @Test
-    public void legumes() {
+    public void subscriber() {
 
-        given().body("{\"id\": \"123\"}").header("Content-Type", "application/json").when()
-                .post("/camel/subscriber/details").then().statusCode(200).body("fullName", is("Some One"),
-                        "addressLine1", is("1 Some Street"), "addressLine2", is("Somewhere SOME C0D3"), "addressLine3",
-                        is("UK"));
-        // "addressLine1":"1 Some Street","addressLine2":"Somewhere SOME C0D3","addressLine3":"UK"}
+        given()
+        	.body("{\"id\": \"123\"}")
+        	.header("Content-Type", "application/json")
+        .when()
+            .post("/camel/subscriber/details")
+        .then()
+            .statusCode(200)
+            .body(
+                "fullName",     is("Some One"),
+                "addressLine1", is("1 Some Street"),
+                "addressLine2", is("Somewhere SOME C0D3"),
+                "addressLine3", is("UK")
+            );
     }
-
 }

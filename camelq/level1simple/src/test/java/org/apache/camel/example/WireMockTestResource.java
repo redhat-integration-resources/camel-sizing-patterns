@@ -22,8 +22,15 @@ public class WireMockTestResource implements QuarkusTestResourceLifecycleManager
         server.start();
 
         // create mock endpoint
-        server.stubFor(post(urlEqualTo("/camel/subscriber/details")).willReturn(aResponse()
-                .withHeader("Content-Type", "application/xml").withStatus(200).withBodyFile("individual.xml")));
+        server.stubFor(
+            post(urlEqualTo("/camel/subscriber/details"))
+            .willReturn(
+                aResponse()
+                .withHeader("Content-Type", "application/xml")
+                .withStatus(200)
+                .withBodyFile("individual.xml")
+            )
+        );
 
         // obtain value as Camel property expects
         String host = server.baseUrl().substring(server.baseUrl().lastIndexOf("http://") + 7);
