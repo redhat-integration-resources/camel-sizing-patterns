@@ -35,4 +35,15 @@ client <--JSON--- Camel[xml2json] <--XML---
 
 ### Medium complexity
 
+This level of complexity is described with the following flow:
+
+```
+client ---JSON--> Camel[json2xml] ---XML--> stub1
+                  Camel[        ] <--XML---  
+                  Camel[json2xml] ---XML--> stub2
+client <--JSON--- Camel[xml2json] <--XML---  
+```
+
+### High complexity
+
 To be defined
