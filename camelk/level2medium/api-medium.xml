@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- camel-k: language=xml dependency=camel-quarkus-openapi-java dependency=mvn:xalan:xalan:2.7.1 -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://camel.apache.org/schema/spring"
+        xsi:schemaLocation="
+            http://camel.apache.org/schema/spring
+            http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+  <!-- MAIN ROUTE -->
+  <route id="xml">
+
+    <from uri="direct:getDetails"/>
+
+    <!-- PRESERVE ORIGINAL REQUEST PAYLOAD -->
+    <setProperty name="request">
+      <simple>${body}</simple>
+    </setProperty>
+
+    <!-- RESOLVE BACKEND CALLS -->
+    <to uri="direct:call-system1"/>
+    <to uri="direct:call-system2"/>
+
+    <!-- TRANSFORM (COMPOSE) 2 XML RESPONSES INTO JSON -->
+    <to uri="atlasmap:{{api.resources}}/response.adm"/>
+
+  </route>
+  
+
+
+  <!-- RESOLVES CALL TO BACKEND 1 -->
+  <route>
+    <from uri="direct:call-system1"/>
+
+    <!-- TRANSFORM REQUEST JSON-to-XML -->
+    <to uri="atlasmap:{{api.resources}}/request.adm"/>
+
+    <!-- CALL to BACKEND -->
+    <removeHeaders pattern="*"/>
+    <setHeader name="content-type">
+      <constant>application/xml</constant>
+    </setHeader>
+    <to uri="http:{{api.backend1.host}}/camel/subscriber/details"/>
+
+    <!-- SET ATLASMAP INPUT -->
+    <setProperty name="subscriber-response-59f8d293-17e6-4259-90f6-849d89aff1e1">
+      <simple resultType="String">${body}</simple>
+    </setProperty>
+
+    <!-- SET EMPTY BODY -->
+    <setBody>
+      <simple>${null}</simple>
+    </setBody>      
+  </route>
+
+
+
+  <!-- RESOLVES CALL TO BACKEND 2 -->
+  <route>
+    <from uri="direct:call-system2"/>
+
+    <!-- RESTORE ORIGINAL REQUEST -->
+    <setBody>
+      <simple>${exchangeProperty.request}</simple>
+    </setBody>
+
+    <!-- TRANSFORM REQUEST JSON-to-XML -->
+    <to uri="atlasmap:{{api.resources}}/request.adm"/>
+
+    <!-- CALL to BACKEND -->
+    <removeHeaders pattern="*"/>
+    <setHeader name="content-type">
+      <constant>application/xml</constant>
+    </setHeader>
+    <to uri="http:{{api.backend2.host}}/camel/subscriber/details"/>
+
+    <!-- SET ATLASMAP INPUT -->
+    <setProperty name="subscriber-response-2-7e3a6b40-2b74-4a0f-81a0-8722db8adce7">
+      <simple resultType="String">${body}</simple>
+    </setProperty>
+
+    <!-- SET EMPTY BODY -->
+    <setBody>
+      <simple>${null}</simple>
+    </setBody>      
+  </route>
+
+
+</routes>

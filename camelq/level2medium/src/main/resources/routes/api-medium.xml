@@ -40,7 +40,7 @@
       <to uri="direct:call-system2"/>
 
       <!-- TRANSFORM (COMPOSE) 2 XML RESPONSES INTO JSON -->
-      <to uri="atlasmap:map/compose-response.adm"/>
+      <to uri="atlasmap:{{api.resources}}/response.adm"/>
 
     </route>
     
@@ -51,7 +51,7 @@
       <from uri="direct:call-system1"/>
 
       <!-- TRANSFORM REQUEST JSON-to-XML -->
-      <to uri="atlasmap:map/request.adm"/>
+      <to uri="atlasmap:{{api.resources}}/request.adm"/>
 
       <!-- CALL to BACKEND -->
       <removeHeaders pattern="*"/>
@@ -84,7 +84,7 @@
       </setBody>
 
       <!-- TRANSFORM REQUEST JSON-to-XML -->
-      <to uri="atlasmap:map/request.adm"/>
+      <to uri="atlasmap:{{api.resources}}/request.adm"/>
 
       <!-- CALL to BACKEND -->
       <removeHeaders pattern="*"/>
@@ -96,7 +96,7 @@
       <!-- SET ATLASMAP INPUT -->
       <setProperty name="subscriber-response-2-7e3a6b40-2b74-4a0f-81a0-8722db8adce7">
         <simple resultType="String">${body}</simple>
-        <!-- <simple>resource:classpath:data/subscriber-response-2.xml</simple> -->
+        <!-- <simple>resource:classpath:data/subscriber-response2.xml</simple> -->
       </setProperty>
 
       <!-- SET EMPTY BODY -->

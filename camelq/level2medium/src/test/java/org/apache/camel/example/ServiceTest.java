@@ -39,10 +39,22 @@ public class ServiceTest {
         .then()
             .statusCode(200)
             .body(
-                "fullName",     is("Some One"),
-                "addressLine1", is("1 Some Street"),
-                "addressLine2", is("Somewhere SOME C0D3"),
-                "addressLine3", is("UK")
+                "client.fullName",     is("Some One"),
+                "client.addressLine1", is("1 Some Street"),
+                "client.addressLine2", is("Somewhere UK"),
+                "client.addressLine3", is("SOME C0D3"),
+
+                "subscriptions.period.start",   is("01-01-2022"),
+                "subscriptions.period.end",     is("01-01-2023"),
+
+                "subscriptions.packages[0].id",     is("i-001"),
+                "subscriptions.packages[0].amount", is("16.00"),
+
+                "subscriptions.packages[1].id",     is("i-002"),
+                "subscriptions.packages[1].amount", is("32.00"),
+
+                "subscriptions.packages[2].id",     is("i-018"),
+                "subscriptions.packages[2].amount", is("200.00")
             );
     }
 }

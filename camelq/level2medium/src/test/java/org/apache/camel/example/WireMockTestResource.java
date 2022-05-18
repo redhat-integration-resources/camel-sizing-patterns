@@ -13,38 +13,59 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 
 public class WireMockTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private WireMockServer server;
+    private WireMockServer server1;
+    private WireMockServer server2;
 
     @Override
     public Map<String, String> start() {
         // Setup & start the server
-        server = new WireMockServer(wireMockConfig().dynamicPort());
-        server.start();
+        server1 = new WireMockServer(wireMockConfig().dynamicPort());
+        server1.start();
+
+        // Setup & start the server
+        server2 = new WireMockServer(wireMockConfig().dynamicPort());
+        server2.start();
 
         // create mock endpoint
-        server.stubFor(
+        server1.stubFor(
             post(urlEqualTo("/camel/subscriber/details"))
             .willReturn(
                 aResponse()
                 .withHeader("Content-Type", "application/xml")
                 .withStatus(200)
-                .withBodyFile("individual.xml")
+                .withBodyFile("individual1.xml")
+            )
+        );
+
+        // create mock endpoint
+        server2.stubFor(
+            post(urlEqualTo("/camel/subscriber/details"))
+            .willReturn(
+                aResponse()
+                .withHeader("Content-Type", "application/xml")
+                .withStatus(200)
+                .withBodyFile("individual2.xml")
             )
         );
 
         // obtain value as Camel property expects
-        String host = server.baseUrl().substring(server.baseUrl().lastIndexOf("http://") + 7);
+        String host1 = server1.baseUrl().substring(server1.baseUrl().lastIndexOf("http://") + 7);
+        String host2 = server2.baseUrl().substring(server2.baseUrl().lastIndexOf("http://") + 7);
 
         // Ensure the camel component API client passes requests through the WireMock proxy
         Map<String, String> conf = new HashMap<>();
-        conf.put("api.backend1.host", host);
+        conf.put("api.backend1.host", host1);
+        conf.put("api.backend2.host", host2);
         return conf;
     }
 
     @Override
     public void stop() {
-        if (server != null) {
-            server.stop();
+        if (server1 != null) {
+            server1.stop();
+        }
+        if (server2 != null) {
+            server2.stop();
         }
     }
 }
