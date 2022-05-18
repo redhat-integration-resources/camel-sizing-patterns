@@ -1,0 +1,24 @@
+{
+	"client":{
+		"fullName": "some text",
+		"addressLine1": "some text",
+		"addressLine2": "some text",
+		"addressLine3": "some text"
+	},
+	"subscriptions": {
+	    "period":{
+			"start": "01-01-1970",
+			"end":   "01-01-1970"
+		},	    
+	    "packages": [
+			{
+				"id": "i-001",
+				"amount": "100"
+			},
+			{
+				"id": "i-002",
+				"amount": "200"
+			}
+	    ]
+	}
+}

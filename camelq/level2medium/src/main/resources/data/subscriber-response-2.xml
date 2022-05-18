@@ -1,0 +1,20 @@
+<Subscriptions>
+    <Period>
+    	<StartDate>01-01-2022</StartDate>
+    	<EndDate>01-01-2023</EndDate>
+    </Period>
+    <Packages>
+        <Item>
+    		<Identifier>i-001</Identifier>
+    		<Amount>16.00</Amount>
+        </Item>
+        <Item>
+    		<Identifier>i-002</Identifier>
+    		<Amount>32.00</Amount>
+        </Item>
+        <Item>
+    		<Identifier>i-018</Identifier>
+    		<Amount>200.00</Amount>
+        </Item>
+    </Packages>
+</Subscriptions>

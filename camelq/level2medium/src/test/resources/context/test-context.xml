@@ -28,22 +28,14 @@
     <!-- Write your routes here, for example: -->
     <route id="xml">
 
-      <from uri="direct:getDetails"/>
+      <from uri="direct:test"/>
 
-      <!-- REQUEST TRANSFORMATION -->
-      <to uri="atlasmap:map/request.adm"/>
+      <log message="hello"/>
 
-      <!-- CALL to BACKEND -->
-      <removeHeaders pattern="*"/>
-      <setHeader name="content-type">
-        <constant>application/xml</constant>
-      </setHeader>
-      <to uri="http:{{api.backend1.host}}/camel/subscriber/details"/>
 
-      <!-- RESPONSE TRANSFORMATION -->
-      <to uri="atlasmap:map/response.adm"/> 
 
     </route>
+
     
 
 </routes>

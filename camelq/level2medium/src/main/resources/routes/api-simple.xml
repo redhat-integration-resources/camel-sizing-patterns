@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://camel.apache.org/schema/spring"
+        xsi:schemaLocation="
+            http://camel.apache.org/schema/spring
+            http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+    <!-- MAIN ROUTE -->
+    <route id="xml">
+
+      <from uri="direct:getDetails"/>
+
+      <!-- PRESERVE ORIGINAL REQUEST PAYLOAD -->
+      <setProperty name="request">
+        <simple>${body}</simple>
+      </setProperty>
+
+      <!-- RESOLVE BACKEND CALLS -->
+      <to uri="direct:call-system1"/>
+      <to uri="direct:call-system2"/>
+
+      <!-- TRANSFORM (COMPOSE) 2 XML RESPONSES INTO JSON -->
+      <to uri="atlasmap:map/compose-response.adm"/>
+
+    </route>
+    
+
+
+    <!-- RESOLVES CALL TO BACKEND 1 -->
+    <route>
+      <from uri="direct:call-system1"/>
+
+      <!-- TRANSFORM REQUEST JSON-to-XML -->
+      <to uri="atlasmap:map/request.adm"/>
+
+      <!-- CALL to BACKEND -->
+      <removeHeaders pattern="*"/>
+      <setHeader name="content-type">
+        <constant>application/xml</constant>
+      </setHeader>
+      <to uri="http:{{api.backend1.host}}/camel/subscriber/details"/>
+
+      <!-- SET ATLASMAP INPUT -->
+      <setProperty name="subscriber-response-59f8d293-17e6-4259-90f6-849d89aff1e1">
+        <simple resultType="String">${body}</simple>
+        <!-- <simple>resource:classpath:data/subscriber-response.xml</simple> -->
+      </setProperty>
+
+      <!-- SET EMPTY BODY -->
+      <setBody>
+        <simple>${null}</simple>
+      </setBody>      
+    </route>
+
+
+
+    <!-- RESOLVES CALL TO BACKEND 2 -->
+    <route>
+      <from uri="direct:call-system2"/>
+
+      <!-- RESTORE ORIGINAL REQUEST -->
+      <setBody>
+        <simple>${exchangeProperty.request}</simple>
+      </setBody>
+
+      <!-- TRANSFORM REQUEST JSON-to-XML -->
+      <to uri="atlasmap:map/request.adm"/>
+
+      <!-- CALL to BACKEND -->
+      <removeHeaders pattern="*"/>
+      <setHeader name="content-type">
+        <constant>application/xml</constant>
+      </setHeader>
+      <to uri="http:{{api.backend2.host}}/camel/subscriber/details"/>
+
+      <!-- SET ATLASMAP INPUT -->
+      <setProperty name="subscriber-response-2-7e3a6b40-2b74-4a0f-81a0-8722db8adce7">
+        <simple resultType="String">${body}</simple>
+        <!-- <simple>resource:classpath:data/subscriber-response-2.xml</simple> -->
+      </setProperty>
+
+      <!-- SET EMPTY BODY -->
+      <setBody>
+        <simple>${null}</simple>
+      </setBody>      
+    </route>
+
+
+</routes>
