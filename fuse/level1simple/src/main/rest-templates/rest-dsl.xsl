@@ -17,7 +17,8 @@
 
 <!-- 	plugin generates path attribute in rest element
 		we intentionally discard it as it conflicts with Camel's context path -->
-		<xsl:for-each select="/camel:rests/camel:rest">
+		<!-- xsl:for-each select="/camel:rests/camel:rest" -->
+		<xsl:for-each select="/*[local-name()='rests']/*[local-name()='rest']">
 			<rest>
 				<xsl:copy-of select="*"/>
 			</rest>
