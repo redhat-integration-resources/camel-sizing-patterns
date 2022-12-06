@@ -8,16 +8,17 @@ This repository collects a number of Camel based flow patterns very common in la
 
 To collect a number of representative Camel based patterns, and standardise their implementation across different Camel flavoured runtimes:
 
- - Fuse
+ - Fuse (SpringBoot)
  - Camel K
  - Camel Quarkus
+ - Camel SpringBoot
 
 ## Requirements
 
 Each pattern should:
 
  - expose an OpenApi interface
- - perform AtlasMap based data transformations
+ - perform AtlasMap or XSLT based data transformations
  - perform JSON to XML conversions
  - include HTTP backends to interact with
  - be based on Camel's XML DSL
