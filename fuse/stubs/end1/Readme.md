@@ -10,7 +10,7 @@ mvn -Dspring-boot.run.profiles=dev
 You can discover the *OpenApi* service specification with the following `curl` command:
 
 ```
-curl http://localhost:9000/camel/api-docs
+curl http://localhost:9000/camel/openapi.json
 ```
 
 You can send a `POST` request with the following `curl` command:
