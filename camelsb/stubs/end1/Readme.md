@@ -4,7 +4,7 @@
 Run it executing the command below:
 
 ```
-mvn -Dspring-boot.run.profiles=dev
+mvn -Dspring-boot.run.profiles=dev -s configuration/settings.xml
 ```
 
 You can discover the *OpenApi* service specification with the following `curl` command:
@@ -32,7 +32,7 @@ Ensure you create/switch-to the namespace where you want to deploy the stub.
 
 Run the following command to trigger the deployment:
 ```
-mvn oc:deploy -Popenshift
+mvn oc:deploy -Popenshift -s configuration/settings.xml
 ```
 
 To test the stub once deployed, open a tunnel with the following command:

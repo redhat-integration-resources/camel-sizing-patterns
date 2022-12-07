@@ -4,7 +4,8 @@ xmlns="http://www.w3.org/2005/xpath-functions">
 <xsl:output method="text" encoding="UTF-8"/>
 
 <xsl:template match="/">
-    <!-- CONVERT INPUT TO XML FOR JSON -->
+    <!-- MAP XML INPUT TO XML FOR JSON 
+         as per: https://www.w3.org/TR/xslt-30/#json-to-xml-mapping -->
     <xsl:variable name="xml">
         <map>
             <string key="fullName">
@@ -22,7 +23,7 @@ xmlns="http://www.w3.org/2005/xpath-functions">
         </map>   
     </xsl:variable>
 
-    <!-- OUTPUT -->
+    <!-- JSON OUTPUT -->
     <xsl:value-of select="xml-to-json($xml)"/>
 </xsl:template>
 

@@ -33,13 +33,13 @@
     <route id="json2xml">
       <from uri="direct:json2xml"/>
       <convertBodyTo type="String"/>
-      <setHeader name="input">
+      <setHeader name="json">
         <simple>${body}</simple>
       </setHeader>
       <setBody>
         <constant>&lt;data/&gt;</constant>
       </setBody>
-      <!-- <log message="json2xml->JSON:\n${header.input}"/> -->
+      <!-- <log message="json2xml->JSON:\n${header.json}"/> -->
       <to uri="xslt-saxon:xslt/j2x.xsl"/>
       <!-- <log message="json2xml->XML:\n${body}"/> -->
     </route>

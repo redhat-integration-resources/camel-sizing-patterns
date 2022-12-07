@@ -132,6 +132,8 @@
       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-restdsl-openapi-plugin</artifactId>
+        <!-- we need to specify the version, otherwise it may get the upstream version where REST DSL spec may be different -->
+        <version>3.7.0.fuse-800004-redhat-00001</version>
         <executions>
           <execution>
             <id>simple</id>
