@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/s1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="s1" targetNamespace="http://www.example.org/s1/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/s1/">
+      <xsd:element name="SubscriberRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Id" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubscriberResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Name" type="xsd:string"/>
+            <xsd:element name="Surname" type="xsd:string"/>
+            <xsd:element name="Address">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="Number" type="xsd:string"/>
+                  <xsd:element name="Street" type="xsd:string"/>
+                  <xsd:element name="City" type="xsd:string"/>
+                  <xsd:element name="PostCode" type="xsd:string"/>
+                  <xsd:element name="Country" type="xsd:string"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="S1OperationRequest">
+    <wsdl:part element="tns:SubscriberRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="S1OperationResponse">
+    <wsdl:part element="tns:SubscriberResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="s1">
+    <wsdl:operation name="S1Operation">
+      <wsdl:input message="tns:S1OperationRequest"/>
+      <wsdl:output message="tns:S1OperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="s1SOAP" type="tns:s1">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="S1Operation">
+      <soap:operation soapAction="http://www.example.org/s1/S1Operation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="s1">
+    <wsdl:port binding="tns:s1SOAP" name="s1SOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
