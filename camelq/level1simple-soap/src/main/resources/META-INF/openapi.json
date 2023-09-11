@@ -6,8 +6,8 @@
     },
     "servers": [
         {
-          "url": "http://localhost:8080/camel",
-          "description": "Local host, for development"
+          "url": "/camel",
+          "description": "Default host"
         }
     ],
     "paths": {

@@ -1,0 +1,60 @@
+# camel-k: language=yaml
+
+# MAIN route
+- from:
+    id: main
+    uri: direct:getDetails
+    steps:
+
+      # REQUEST TRANSFORMATION 
+      - to:
+          uri: direct:json2soap
+
+      # CALL to BACKEND      
+      - setHeader:
+          name: CamelDestinationOverrideUrl
+          simple: http://{{api.backend1.host}}/services/s1
+      - to:
+          uri: cxf:bean:s1
+
+      # RESPONSE TRANSFORMATION 
+      - to:
+          uri: direct:soap2json
+
+
+- from:
+    id: json2soap
+    uri: direct:json2soap
+    steps:
+      - convertBodyTo:
+          type: String  
+      - setHeader:
+          name: json
+          simple: ${body}
+      - setBody:
+          simple: <data/>
+      # - log:
+      #     message: json2soap->JSON:\n${header.json}
+      - to:
+          uri: xslt-saxon:xslt/request.xsl
+      # - log:
+      #     message: json2soap->SOAP:\n${body}
+      - removeHeaders:
+          pattern: "*"
+
+- from:
+    id: soap2json
+    uri: direct:soap2json
+    steps:
+      - setBody:
+          simple: ${body[0]}
+      # - log:
+      #     message: soap2json->SOAP:\n${body}
+      - to:
+          uri: xslt-saxon:xslt/response.xsl
+      # - log:
+      #     message: soap2json->JSON:\n${body}
+      - setHeader:
+          name: Content-Type
+          simple: application/json
+

@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<ns2:SubscriberRequest xmlns:ns2="http://www.example.org/s1/">
+			<Id>dummy</Id>
+		</ns2:SubscriberRequest>
+ 	</soap:Body>
+</soap:Envelope>

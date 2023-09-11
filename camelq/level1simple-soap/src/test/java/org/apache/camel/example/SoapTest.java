@@ -1,30 +1,20 @@
 package org.apache.camel.example;
 
 import io.quarkus.test.junit.QuarkusTest;
+import javax.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-// import org.apache.camel.test.junit5.CamelTestSupport;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
-import org.junit.jupiter.api.Test;
-
-import javax.inject.Inject;
-
-
-
-// import io.quarkus.test.common.QuarkusTestResource;
-// import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-// import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 
 @QuarkusTest
-// public class SoapTest extends CamelTestSupport {
 public class SoapTest extends CamelQuarkusTestSupport {
 
     @Inject

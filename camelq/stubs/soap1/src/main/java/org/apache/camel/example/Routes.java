@@ -36,8 +36,6 @@ public class Routes extends RouteBuilder {
     	CxfEndpoint e = new CxfEndpoint();
         e.setServiceClass("org.example.s1.S1");
         e.setAddress("/s1");
-        e.setDataFormat(org.apache.camel.component.cxf.common.DataFormat.PAYLOAD);      
-
         return e;
     }
 }

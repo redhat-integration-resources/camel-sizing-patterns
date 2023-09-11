@@ -16,13 +16,12 @@ curl http://localhost:9000/services/s1?wsdl
 
 You can send a `POST` request with the following `curl` command:
 
->**Note**: it's a dummy stub and the payload to send can be empty
-
+>**Note**: the command uses `xmllint` to pretty-print the response, remove if not installed in your machine.
 ```
-curl \
--H "content-type: application/xml" \
--d '' \
-http://localhost:9000/camel/subscriber/details
+curl -s \
+-d @src/main/resources/request.xml \
+http://localhost:9000/services/s1 \
+| xmllint --format -
 ```
 
 ## Deploying to Openshift

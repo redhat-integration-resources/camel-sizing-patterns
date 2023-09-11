@@ -1,0 +1,13 @@
+# camel-k: language=yaml
+
+- from:
+    id: s1
+    uri: cxf:bean:s1
+    steps:
+      - log:
+          message: "CXF request: ${body[0]}"
+      - to:
+          uri: language:constant:resource:classpath:response.xml
+      - unmarshal:
+          jaxb:
+            context-path: org.example.s1
